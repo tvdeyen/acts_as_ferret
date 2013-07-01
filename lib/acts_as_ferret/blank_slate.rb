@@ -1,20 +1,25 @@
 module ActsAsFerret
-  
-  if defined?(ActiveSupport::BasicObject)
+
+  if defined?(ActiveSupport::ProxyObject)
+    # Rails 4
+    class BlankSlate < ActiveSupport::ProxyObject
+    end
+
+  elsif defined?(ActiveSupport::BasicObject)
     # Rails 2.3, 3.x
     class BlankSlate < ActiveSupport::BasicObject
     end
-    
+
   elsif defined?(::BasicObject)
     # Ruby 1.9.x
     class BlankSlate < BasicObject
     end
-    
+
   elsif defined?(::BlankSlate)
     # former 2.x rails versions (?)
     class BlankSlate < ::BlankSlate
     end
-    
+
   else
     # 'backported' for Rails pre 2.0
     #
