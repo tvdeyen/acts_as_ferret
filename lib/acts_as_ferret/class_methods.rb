@@ -146,9 +146,9 @@ module ActsAsFerret
     # +page+ and +per_page+ are supposed to work regardless of any 
     # +conditions+ present in +find_options+.
     def find_with_ferret(q, options = {}, find_options = {})
-      if self.scoped.to_sql =~ /WHERE/ && self.scoped.where_values_hash.empty?
         # Treat external scope the same as if :conditions present 
         # (i.e. when it comes to counting results). 
+      if self.all.to_sql =~ /WHERE/ && self.all.where_values_hash.empty?
         find_options[:conditions] ||= '1=1'
       end
       return ActsAsFerret::find q, self, options, find_options
