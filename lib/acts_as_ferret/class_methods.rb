@@ -81,7 +81,7 @@ module ActsAsFerret
         else
           order = "#{primary_key} ASC" # fixes #212
           0.step(self.count, batch_size) do |offset|
-            yield scoped.limit(batch_size).offset(offset).order(order).all, offset
+            yield all.limit(batch_size).offset(offset).order(order).all, offset
           end
         end
       end
